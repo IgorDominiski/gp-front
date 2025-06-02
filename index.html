@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Alertas de Enchentes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <button class="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="logo">AlertaFlood</div>
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#estatisticas">Estatísticas</a></li>
+                    <li><a href="#prevencao">Prevenção</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Sistema de Alertas de Enchentes</h1>
+                <p>Monitore o risco de enchentes em sua cidade em tempo real e receba alertas preventivos</p>
+                
+                <div class="search-container">
+                    <input type="text" id="cityInput" placeholder="Digite o nome da sua cidade (ex: São Paulo, Rio de Janeiro)">
+                    <button onclick="searchCity()">
+                        <span>Buscar</span>
+                        <span class="button-icon">🔍</span>
+                    </button>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="quick-stat-item">
+                        <span class="stat-icon">🌧️</span>
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Monitoramento</span>
+                    </div>
+                    <div class="quick-stat-item">
+                        <span class="stat-icon">⚠️</span>
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Cidades</span>
+                    </div>
+                    <div class="quick-stat-item">
+                        <span class="stat-icon">📊</span>
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Precisão</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultados" class="results hidden">
+            <div class="alert-status">
+                <div class="alert-header">
+                    <h2>Status de Alerta</h2>
+                    <div class="alert-badge" id="alertLevel">--</div>
+                </div>
+                <div class="alert-indicator" id="alertIndicator"></div>
+                <p class="alert-description" id="alertDescription">Carregando informações...</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">📈</span>
+                        Probabilidade de Enchente
+                    </h3>
+                    <canvas id="floodProbabilityChart"></canvas>
+                    <div class="stat-info">
+                        <p>Última atualização: <span id="lastUpdate">--</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">🌧️</span>
+                        Precipitação (últimos 7 dias)
+                    </h3>
+                    <canvas id="rainfallChart"></canvas>
+                    <div class="stat-info">
+                        <p>Média diária: <span id="averageRainfall">--</span> mm</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prevencao" class="prevention">
+            <h2>Como Prevenir Enchentes</h2>
+            <p class="section-description">A prevenção de enchentes é uma responsabilidade de todos. Conheça as ações que você pode tomar:</p>
+            
+            <div class="prevention-cards">
+                <div class="prevention-card">
+                    <h3>🌱 Ações Individuais</h3>
+                    <ul>
+                        <li>Mantenha as ruas limpas e livre de entulhos</li>
+                        <li>Não jogue lixo nas ruas ou em bueiros</li>
+                        <li>Verifique e limpe as calhas regularmente</li>
+                        <li>Mantenha o sistema de drenagem limpo</li>
+                        <li>Evite impermeabilizar grandes áreas do terreno</li>
+                    </ul>
+                </div>
+                <div class="prevention-card">
+                    <h3>🏢 Ações Comunitárias</h3>
+                    <ul>
+                        <li>Participe de mutirões de limpeza na sua região</li>
+                        <li>Denuncie pontos de acúmulo de lixo</li>
+                        <li>Colabore com a manutenção das áreas públicas</li>
+                        <li>Promova campanhas de conscientização</li>
+                        <li>Organize grupos de monitoramento local</li>
+                    </ul>
+                </div>
+                <div class="prevention-card">
+                    <h3>🏛️ Ações Governamentais</h3>
+                    <ul>
+                        <li>Investimento em infraestrutura de drenagem</li>
+                        <li>Manutenção regular de bueiros e galerias</li>
+                        <li>Planejamento urbano adequado</li>
+                        <li>Sistema de alerta precoce</li>
+                        <li>Programas de educação ambiental</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="emergency-contacts">
+                <h3>Contatos de Emergência</h3>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="contact-icon">🚒</span>
+                        <span class="contact-label">Bombeiros</span>
+                        <span class="contact-number">193</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">👮</span>
+                        <span class="contact-label">Defesa Civil</span>
+                        <span class="contact-number">199</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🏥</span>
+                        <span class="contact-label">SAMU</span>
+                        <span class="contact-number">192</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 AlertaFlood - Sistema de Monitoramento de Enchentes</p>
+            <p>Dados atualizados em tempo real | Desenvolvido com ❤️ para a segurança da população</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
