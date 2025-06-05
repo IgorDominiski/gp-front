@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Alertas de Enchentes</title>
+    <title>HydroSafe - Sistema de Alertas de Enchentes</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,12 +16,24 @@
                 <span></span>
                 <span></span>
             </button>
-            <div class="logo">AlertaFlood</div>
+            <div class="logo">HydroSafe</div>
             <div class="nav-menu">
                 <ul>
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#estatisticas">Estatísticas</a></li>
-                    <li><a href="#prevencao">Prevenção</a></li>
+                    <li><a href="index.html" class="active">Início</a></li>
+                    <li class="menu-divider">Sobre o Projeto</li>
+                    <li><a href="#problema">O Problema</a></li>
+                    <li><a href="#tecnologias">Tecnologias</a></li>
+                    <li><a href="#objetivos">Objetivos</a></li>
+                    <li><a href="#publico">Público-Alvo</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#impacto">Impacto Diário</a></li>
+                    <li class="menu-divider">Interatividade</li>
+                    <li><a href="#quiz">Quiz</a></li>
+                    <li class="theme-switcher">
+                        <button class="theme-btn" data-theme="light" title="Tema Claro">☀️</button>
+                        <button class="theme-btn" data-theme="dark" title="Tema Escuro">🌙</button>
+                        <button class="theme-btn" data-theme="blue" title="Tema Azul">🌊</button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -30,7 +42,7 @@
     <main>
         <section id="inicio" class="hero">
             <div class="hero-content">
-                <h1>Sistema de Alertas de Enchentes</h1>
+                <h1>HydroSafe</h1>
                 <p>Monitore o risco de enchentes em sua cidade em tempo real e receba alertas preventivos</p>
                 
                 <div class="search-container">
@@ -93,62 +105,182 @@
                     </div>
                 </div>
             </div>
+
+            <div class="quick-links">
+                <a href="#problema" class="quick-link-card">
+                    <span class="icon">📊</span>
+                    <h3>Conheça o Problema</h3>
+                    <p>Entenda os desafios das enchentes urbanas</p>
+                </a>
+                <a href="#quiz" class="quick-link-card">
+                    <span class="icon">🎯</span>
+                    <h3>Teste seus Conhecimentos</h3>
+                    <p>Participe do quiz e aprenda mais</p>
+                </a>
+            </div>
         </section>
 
-        <section id="prevencao" class="prevention">
-            <h2>Como Prevenir Enchentes</h2>
-            <p class="section-description">A prevenção de enchentes é uma responsabilidade de todos. Conheça as ações que você pode tomar:</p>
-            
-            <div class="prevention-cards">
-                <div class="prevention-card">
-                    <h3>🌱 Ações Individuais</h3>
-                    <ul>
-                        <li>Mantenha as ruas limpas e livre de entulhos</li>
-                        <li>Não jogue lixo nas ruas ou em bueiros</li>
-                        <li>Verifique e limpe as calhas regularmente</li>
-                        <li>Mantenha o sistema de drenagem limpo</li>
-                        <li>Evite impermeabilizar grandes áreas do terreno</li>
-                    </ul>
+        <section id="problema" class="info-section">
+            <div class="section-content">
+                <h2>O Problema</h2>
+                <p>As enchentes representam um dos maiores desafios urbanos no Brasil, causando danos materiais, prejuízos econômicos e, em casos extremos, perdas humanas. A falta de um sistema eficiente de monitoramento e alerta preventivo agrava ainda mais esta situação.</p>
+            </div>
+        </section>
+
+        <section id="tecnologias" class="info-section">
+            <div class="section-content">
+                <h2>Tecnologias Utilizadas</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="tech-icon">🌐</span>
+                        <h3>Web Development</h3>
+                        <p>HTML5, CSS3, JavaScript moderno para uma interface responsiva e intuitiva</p>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📊</span>
+                        <h3>Data Visualization</h3>
+                        <p>Chart.js para gráficos interativos e visualização de dados em tempo real</p>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🔍</span>
+                        <h3>APIs</h3>
+                        <p>Integração com serviços meteorológicos e sistemas de monitoramento</p>
+                    </div>
                 </div>
-                <div class="prevention-card">
-                    <h3>🏢 Ações Comunitárias</h3>
-                    <ul>
-                        <li>Participe de mutirões de limpeza na sua região</li>
-                        <li>Denuncie pontos de acúmulo de lixo</li>
-                        <li>Colabore com a manutenção das áreas públicas</li>
-                        <li>Promova campanhas de conscientização</li>
-                        <li>Organize grupos de monitoramento local</li>
+            </div>
+        </section>
+
+        <section id="objetivos" class="info-section">
+            <div class="section-content">
+                <h2>Objetivos</h2>
+                <ul class="objectives-list">
+                    <li>Reduzir o impacto das enchentes através de alertas preventivos</li>
+                    <li>Fornecer dados precisos e atualizados sobre condições climáticas</li>
+                    <li>Promover a conscientização sobre prevenção de enchentes</li>
+                    <li>Facilitar o acesso a informações de emergência</li>
+                    <li>Criar uma rede de monitoramento colaborativa</li>
                     </ul>
+            </div>
+        </section>
+
+        <section id="publico" class="info-section">
+            <div class="section-content">
+                <h2>Público-Alvo</h2>
+                <div class="audience-grid">
+                    <div class="audience-item">
+                        <span class="audience-icon">👥</span>
+                        <h3>População em Geral</h3>
+                        <p>Moradores de áreas de risco e interessados em segurança</p>
+                    </div>
+                    <div class="audience-item">
+                        <span class="audience-icon">🏢</span>
+                        <h3>Gestores Públicos</h3>
+                        <p>Prefeituras e órgãos de defesa civil</p>
+                    </div>
+                    <div class="audience-item">
+                        <span class="audience-icon">🏘️</span>
+                        <h3>Comunidades</h3>
+                        <p>Associações de bairro e grupos comunitários</p>
+                    </div>
                 </div>
-                <div class="prevention-card">
-                    <h3>🏛️ Ações Governamentais</h3>
-                    <ul>
-                        <li>Investimento em infraestrutura de drenagem</li>
-                        <li>Manutenção regular de bueiros e galerias</li>
-                        <li>Planejamento urbano adequado</li>
-                        <li>Sistema de alerta precoce</li>
-                        <li>Programas de educação ambiental</li>
-                    </ul>
+            </div>
+        </section>
+
+        <section id="beneficios" class="info-section">
+            <div class="section-content">
+                <h2>Benefícios</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🛡️</span>
+                        <h3>Segurança</h3>
+                        <p>Alertas preventivos que salvam vidas e protegem patrimônios</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📱</span>
+                        <h3>Acessibilidade</h3>
+                        <p>Informações disponíveis 24/7 em qualquer dispositivo</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🤝</span>
+                        <h3>Colaboração</h3>
+                        <p>Plataforma que une comunidade e autoridades</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impacto" class="info-section">
+            <div class="section-content">
+                <h2>Impacto no Dia a Dia</h2>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <span class="impact-icon">⏰</span>
+                        <h3>Monitoramento Contínuo</h3>
+                        <p>Acompanhamento em tempo real das condições climáticas</p>
+                    </div>
+                    <div class="impact-item">
+                        <span class="impact-icon">📢</span>
+                        <h3>Alertas Imediatos</h3>
+                        <p>Notificações rápidas sobre situações de risco</p>
+                    </div>
+                    <div class="impact-item">
+                        <span class="impact-icon">📊</span>
+                        <h3>Dados Históricos</h3>
+                        <p>Acesso a estatísticas e tendências para melhor planejamento</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="quiz-section">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>Quiz HydroSafe</h2>
+                    <p>Teste seus conhecimentos sobre enchentes e prevenção</p>
+                </div>
+
+                <div id="quiz" class="quiz-content">
+                    <div id="pergunta-atual" class="pergunta-container">
+                        <!-- As perguntas serão inseridas aqui via JavaScript -->
+                    </div>
+
+                    <div class="quiz-controles">
+                        <button id="btn-anterior" class="btn btn-secondary">Anterior</button>
+                        <div class="quiz-actions">
+                            <button id="btn-enviar" class="btn btn-primary" style="display: none;">Enviar Resposta</button>
+                            <button id="btn-proxima" class="btn btn-primary" style="display: none;">Próxima</button>
+                            <button id="btn-resultados" class="btn btn-success" style="display: none;">Ver Resultados</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-progresso">
+                        <div class="barra-progresso">
+                            <div id="progresso" class="progresso"></div>
+                        </div>
+                        <span id="contador-perguntas">Pergunta 1 de 5</span>
                 </div>
             </div>
 
-            <div class="emergency-contacts">
-                <h3>Contatos de Emergência</h3>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <span class="contact-icon">🚒</span>
-                        <span class="contact-label">Bombeiros</span>
-                        <span class="contact-number">193</span>
+                <div id="resultado" class="resultado-container" style="display: none;">
+                    <h2>Seu Resultado</h2>
+                    <div class="pontuacao-container">
+                        <div class="pontuacao">
+                            <span id="pontuacao-numero">0</span>
+                            <span class="pontuacao-maxima">/10</span>
+                        </div>
+                        <div class="nivel-conhecimento">
+                            <h3 id="nivel-titulo">Nível de Conhecimento</h3>
+                            <p id="nivel-descricao">Descrição do nível</p>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">👮</span>
-                        <span class="contact-label">Defesa Civil</span>
-                        <span class="contact-number">199</span>
+                    <div class="recomendacoes">
+                        <h3>Recomendações</h3>
+                        <ul id="lista-recomendacoes">
+                            <!-- Recomendações serão inseridas via JavaScript -->
+                        </ul>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">🏥</span>
-                        <span class="contact-label">SAMU</span>
-                        <span class="contact-number">192</span>
+                    <div class="botoes-resultado">
+                        <button id="botao-reiniciar" class="botao-primario">Fazer Quiz Novamente</button>
                     </div>
                 </div>
             </div>
@@ -157,7 +289,7 @@
 
     <footer>
         <div class="footer-content">
-            <p>© 2024 AlertaFlood - Sistema de Monitoramento de Enchentes</p>
+            <p>© 2024 HydroSafe - Sistema de Monitoramento de Enchentes</p>
             <p>Dados atualizados em tempo real | Desenvolvido com ❤️ para a segurança da população</p>
         </div>
     </footer>

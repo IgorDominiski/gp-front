@@ -305,8 +305,388 @@ function initMobileMenu() {
     });
 }
 
-// Inicializa o menu mobile quando o documento estiver carregado
+// Função para controlar o tema
+function initThemeSwitcher() {
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const body = document.body;
+    
+    // Recupera o tema salvo ou usa o tema padrão (light)
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', savedTheme);
+    themeButtons.forEach(btn => {
+        if (btn.dataset.theme === savedTheme) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Adiciona event listeners para os botões de tema
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const theme = btn.dataset.theme;
+            
+            // Remove a classe active de todos os botões
+            themeButtons.forEach(b => b.classList.remove('active'));
+            
+            // Adiciona a classe active ao botão clicado
+            btn.classList.add('active');
+            
+            // Aplica o tema
+            body.setAttribute('data-theme', theme);
+            
+            // Salva a preferência do usuário
+            localStorage.setItem('theme', theme);
+            
+            // Atualiza os gráficos se estiverem visíveis
+            const resultsSection = document.getElementById('resultados');
+            if (!resultsSection.classList.contains('hidden')) {
+                const cityInput = document.getElementById('cityInput');
+                const city = cityInput.value.trim();
+                if (cityData[city]) {
+                    updateCharts(city);
+                }
+            }
+        });
+    });
+}
+
+// Quiz functionality
+const quizQuestions = [
+    {
+        question: "Qual é a principal causa de enchentes urbanas?",
+        options: [
+            "Chuvas intensas",
+            "Falta de limpeza das ruas",
+            "Impermeabilização do solo",
+            "Todas as alternativas acima"
+        ],
+        correct: 3,
+        explanation: "As enchentes urbanas são causadas por uma combinação de fatores, incluindo chuvas intensas, falta de limpeza das ruas e principalmente a impermeabilização do solo devido ao crescimento urbano desordenado."
+    },
+    {
+        question: "O que é um ponto de alagamento?",
+        options: [
+            "Um local que sempre alaga",
+            "Uma área que acumula água durante chuvas",
+            "Um sistema de drenagem",
+            "Uma estação meteorológica"
+        ],
+        correct: 1,
+        explanation: "Um ponto de alagamento é uma área que acumula água durante períodos de chuva, podendo causar transtornos à população e danos à infraestrutura urbana."
+    },
+    {
+        question: "Qual é a melhor ação durante uma enchente?",
+        options: [
+            "Dirigir rapidamente para casa",
+            "Atravessar áreas alagadas a pé",
+            "Procurar abrigo em local seguro e elevado",
+            "Nenhuma das alternativas"
+        ],
+        correct: 2,
+        explanation: "Durante uma enchente, a melhor ação é procurar abrigo em um local seguro e elevado, evitando áreas de risco e seguindo as orientações das autoridades."
+    },
+    {
+        question: "O que significa o termo 'drenagem urbana'?",
+        options: [
+            "Sistema de esgoto",
+            "Sistema de captação e escoamento de águas pluviais",
+            "Sistema de tratamento de água",
+            "Sistema de irrigação"
+        ],
+        correct: 1,
+        explanation: "Drenagem urbana é o sistema responsável pela captação e escoamento das águas pluviais nas cidades, incluindo galerias, canais e outros dispositivos de drenagem."
+    },
+    {
+        question: "Qual é o papel do cidadão na prevenção de enchentes?",
+        options: [
+            "Apenas observar",
+            "Denunciar problemas e manter a cidade limpa",
+            "Construir barreiras",
+            "Nenhum papel"
+        ],
+        correct: 1,
+        explanation: "O cidadão tem um papel importante na prevenção de enchentes, incluindo a manutenção da limpeza da cidade, denúncia de problemas e participação em ações preventivas."
+    }
+];
+
+const knowledgeLevels = {
+    iniciante: {
+        min: 0,
+        max: 3,
+        title: "Iniciante",
+        description: "Você está começando a aprender sobre enchentes urbanas.",
+        recommendations: [
+            "Leia mais sobre o tema nas seções de prevenção",
+            "Acompanhe as atualizações do site",
+            "Compartilhe o conhecimento com amigos e familiares"
+        ]
+    },
+    intermediario: {
+        min: 4,
+        max: 7,
+        title: "Intermediário",
+        description: "Você tem um bom conhecimento sobre o tema!",
+        recommendations: [
+            "Aprofunde seus conhecimentos nas seções específicas",
+            "Participe de ações preventivas na sua comunidade",
+            "Ajude a disseminar informações importantes"
+        ]
+    },
+    avancado: {
+        min: 8,
+        max: 10,
+        title: "Avançado",
+        description: "Excelente! Você é um especialista no assunto!",
+        recommendations: [
+            "Continue se atualizando sobre novas tecnologias e soluções",
+            "Colabore com ações preventivas na sua região",
+            "Compartilhe seu conhecimento para ajudar outras pessoas"
+        ]
+    }
+};
+
+let quizState = {
+    currentQuestion: 0,
+    userAnswers: [],
+    score: 0
+};
+
+function initQuiz() {
+    const quizContainer = document.querySelector('.quiz-content');
+    const resultContainer = document.querySelector('.resultado-container');
+    const progressBar = document.querySelector('#progresso');
+    const questionCounter = document.getElementById('contador-perguntas');
+    const prevButton = document.getElementById('btn-anterior');
+    const nextButton = document.getElementById('btn-proxima');
+    const submitButton = document.getElementById('btn-enviar');
+    const resultsButton = document.getElementById('btn-resultados');
+
+    if (!quizContainer || !resultContainer) {
+        console.error('Quiz containers not found');
+        return;
+    }
+
+    function displayQuestion() {
+        const question = quizQuestions[quizState.currentQuestion];
+        const hasAnswered = quizState.userAnswers[quizState.currentQuestion] !== undefined;
+        
+        // Atualiza o conteúdo da pergunta
+        const perguntaContainer = document.getElementById('pergunta-atual');
+        if (perguntaContainer) {
+            perguntaContainer.innerHTML = `
+                <div class="pergunta">${question.question}</div>
+                <div class="opcoes-resposta">
+                    ${question.options.map((option, index) => `
+                        <div class="opcao ${quizState.userAnswers[quizState.currentQuestion] === index ? 'selecionada' : ''}"
+                             onclick="selectAnswer(${index})">
+                            <div class="opcao-marcador"></div>
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Atualiza o progresso
+        const progress = ((quizState.currentQuestion + 1) / quizQuestions.length) * 100;
+        if (progressBar) progressBar.style.width = `${progress}%`;
+        if (questionCounter) questionCounter.textContent = `Pergunta ${quizState.currentQuestion + 1} de ${quizQuestions.length}`;
+
+        // Atualiza os botões
+        updateQuizButtons();
+    }
+
+    function updateQuizButtons() {
+        const hasAnswered = quizState.userAnswers[quizState.currentQuestion] !== undefined;
+        const isLastQuestion = quizState.currentQuestion === quizQuestions.length - 1;
+        const allQuestionsAnswered = quizState.userAnswers.filter(answer => answer !== undefined).length === quizQuestions.length;
+
+        // Atualiza botão anterior
+        if (prevButton) {
+            prevButton.disabled = quizState.currentQuestion === 0;
+            prevButton.style.display = 'inline-block';
+        }
+
+        // Atualiza botão enviar
+        if (submitButton) {
+            if (hasAnswered) {
+                submitButton.style.display = 'none';
+            } else {
+                submitButton.style.display = 'inline-block';
+            }
+        }
+
+        // Atualiza botão próxima
+        if (nextButton) {
+            if (hasAnswered) {
+                nextButton.style.display = 'inline-block';
+                nextButton.textContent = isLastQuestion ? 'Finalizar' : 'Próxima';
+            } else {
+                nextButton.style.display = 'none';
+            }
+        }
+
+        // Atualiza botão resultados
+        if (resultsButton) {
+            resultsButton.style.display = allQuestionsAnswered ? 'inline-block' : 'none';
+        }
+    }
+
+    function selectAnswer(index) {
+        quizState.userAnswers[quizState.currentQuestion] = index;
+        
+        // Mostra o botão de enviar quando uma resposta é selecionada
+        if (submitButton) {
+            submitButton.style.display = 'inline-block';
+        }
+        
+        displayQuestion();
+    }
+
+    function submitAnswer() {
+        const currentAnswer = quizState.userAnswers[quizState.currentQuestion];
+        if (currentAnswer !== undefined) {
+            const question = quizQuestions[quizState.currentQuestion];
+            const options = document.querySelectorAll('.opcao');
+            
+            options.forEach((option, index) => {
+                option.classList.remove('correta', 'incorreta');
+                if (index === question.correct) {
+                    option.classList.add('correta');
+                } else if (index === currentAnswer && index !== question.correct) {
+                    option.classList.add('incorreta');
+                }
+            });
+
+            // Disable option selection after submission
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+
+            updateQuizButtons();
+        }
+    }
+
+    function calculateScore() {
+        let score = 0;
+        quizState.userAnswers.forEach((answer, index) => {
+            if (answer === quizQuestions[index].correct) {
+                score++;
+            }
+        });
+        return score;
+    }
+
+    function getKnowledgeLevel(score) {
+        for (const [level, data] of Object.entries(knowledgeLevels)) {
+            if (score >= data.min && score <= data.max) {
+                return { level, ...data };
+            }
+        }
+        return knowledgeLevels.iniciante;
+    }
+
+    function showResults() {
+        const score = calculateScore();
+        const knowledgeLevel = getKnowledgeLevel(score);
+        
+        quizContainer.style.display = 'none';
+        resultContainer.style.display = 'block';
+        resultContainer.innerHTML = `
+            <h2>Resultado do Quiz</h2>
+            <div class="pontuacao-container">
+                <div class="pontuacao">${score}</div>
+                <div class="pontuacao-maxima">/ ${quizQuestions.length}</div>
+            </div>
+            <div class="nivel-conhecimento">
+                <h3>${knowledgeLevel.title}</h3>
+                <p>${knowledgeLevel.description}</p>
+            </div>
+            <div class="recomendacoes">
+                <h3>Recomendações:</h3>
+                <ul>
+                    ${knowledgeLevel.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="botoes-resultado">
+                <button onclick="restartQuiz()" class="btn btn-primary">Refazer Quiz</button>
+                <button onclick="showExplanations()" class="btn btn-secondary">Ver Explicações</button>
+            </div>
+        `;
+    }
+
+    function showExplanations() {
+        const explanationsContainer = document.createElement('div');
+        explanationsContainer.className = 'explicacoes-container';
+        explanationsContainer.innerHTML = `
+            <h3>Explicações das Respostas</h3>
+            ${quizQuestions.map((q, index) => `
+                <div class="explicacao-item">
+                    <h4>Pergunta ${index + 1}: ${q.question}</h4>
+                    <p>Sua resposta: ${q.options[quizState.userAnswers[index]]}</p>
+                    <p>Resposta correta: ${q.options[q.correct]}</p>
+                    <p class="explicacao">${q.explanation}</p>
+                </div>
+            `).join('')}
+            <button onclick="restartQuiz()" class="btn btn-primary">Refazer Quiz</button>
+        `;
+        
+        const resultContainer = document.querySelector('.resultado-container');
+        resultContainer.innerHTML = '';
+        resultContainer.appendChild(explanationsContainer);
+    }
+
+    // Make functions available globally
+    window.selectAnswer = selectAnswer;
+    window.submitAnswer = submitAnswer;
+    window.restartQuiz = () => {
+        quizState = {
+            currentQuestion: 0,
+            userAnswers: [],
+            score: 0
+        };
+        if (resultContainer) resultContainer.style.display = 'none';
+        if (quizContainer) quizContainer.style.display = 'block';
+        displayQuestion();
+    };
+    window.showExplanations = showExplanations;
+
+    // Event listeners
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            if (quizState.currentQuestion > 0) {
+                quizState.currentQuestion--;
+                displayQuestion();
+            }
+        });
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            if (quizState.currentQuestion < quizQuestions.length - 1) {
+                quizState.currentQuestion++;
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        });
+    }
+
+    if (submitButton) {
+        submitButton.addEventListener('click', submitAnswer);
+    }
+
+    if (resultsButton) {
+        resultsButton.addEventListener('click', showResults);
+    }
+
+    // Inicializa o quiz
+    displayQuestion();
+}
+
+// Initialize quiz when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
+    initThemeSwitcher();
     document.body.classList.add('loaded');
+    initQuiz();
 }); 
