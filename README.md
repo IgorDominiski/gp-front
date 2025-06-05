@@ -2,6 +2,10 @@
 
 Um sistema web moderno para monitoramento e alerta de enchentes em diferentes cidades, desenvolvido com HTML, CSS e JavaScript.
 
+## 👥 Autores
+
+Igor Dominiski RM562055, Murilo Reis RM564053, Murillo Akira RM561806
+
 ## Funcionalidades
 
 - 🎯 Busca de cidades para verificar o risco de enchentes
