@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz HydroSafe - Teste seus conhecimentos sobre enchentes</title>
+    <link rel="stylesheet" href="../../assets/css/quiz/quiz.css">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <nav class="navegacao">
+            <a href="../../index.html" class="marca">🌊 HydroSafe</a>
+            <button class="botao-menu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="menu-navegacao">
+                <ul>
+                    <li><a href="../../pages/sobre/problema.html">O Problema</a></li>
+                    <li><a href="../../pages/sobre/tecnologias.html">Tecnologias</a></li>
+                    <li><a href="../../pages/sobre/objetivos.html">Objetivos</a></li>
+                    <li><a href="../../pages/sobre/publico.html">Público-Alvo</a></li>
+                    <li><a href="../../pages/sobre/beneficios.html">Benefícios</a></li>
+                    <li><a href="../../pages/sobre/impacto.html">Impacto Diário</a></li>
+                    <li><a href="../../pages/monitoramento/estatisticas.html">Estatísticas</a></li>
+                    <li><a href="../../pages/monitoramento/prevencao.html">Prevenção</a></li>
+                    <li><a href="../../pages/quiz/quiz.html" class="active">Quiz</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="conteudo-principal">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1>Quiz HydroSafe</h1>
+                <p>Teste seus conhecimentos sobre enchentes e prevenção</p>
+            </div>
+
+            <div id="quiz" class="quiz-content">
+                <div id="pergunta-atual" class="pergunta-container">
+                    <!-- As perguntas serão inseridas aqui -->
+                </div>
+
+                <div class="quiz-controles">
+                    <button id="botao-anterior" class="botao-secundario" disabled>Anterior</button>
+                    <button id="botao-proximo" class="botao-primario">Próxima</button>
+                </div>
+
+                <div class="quiz-progresso">
+                    <div class="barra-progresso">
+                        <div id="progresso-atual" class="progresso"></div>
+                    </div>
+                    <span id="contador-perguntas">Pergunta 1 de 10</span>
+                </div>
+            </div>
+
+            <div id="resultado" class="resultado-container" style="display: none;">
+                <h2>Seu Resultado</h2>
+                <div class="pontuacao-container">
+                    <div class="pontuacao">
+                        <span id="pontuacao-numero">0</span>
+                        <span class="pontuacao-maxima">/10</span>
+                    </div>
+                    <div class="nivel-conhecimento">
+                        <h3 id="nivel-titulo">Nível de Conhecimento</h3>
+                        <p id="nivel-descricao">Descrição do nível</p>
+                    </div>
+                </div>
+                <div class="recomendacoes">
+                    <h3>Recomendações</h3>
+                    <ul id="lista-recomendacoes">
+                        
+                    </ul>
+                </div>
+                <div class="botoes-resultado">
+                    <button id="botao-reiniciar" class="botao-primario">Fazer Quiz Novamente</button>
+                    <a href="../../index.html" class="botao-secundario">Voltar ao Início</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <div class="conteudo-rodape">
+            <p>&copy; 2024 HydroSafe. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/quiz/quiz.js"></script>
+    <script src="../../assets/js/script.js"></script>
+</body>
+</html> 

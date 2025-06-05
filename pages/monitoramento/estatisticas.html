@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas - HydroSafe</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <button class="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="logo">HydroSafe</div>
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="estatisticas.html" class="active">Estatísticas</a></li>
+                    <li><a href="prevencao.html">Prevenção</a></li>
+                    <li class="theme-switcher">
+                        <button class="theme-btn" data-theme="light" title="Tema Claro">☀️</button>
+                        <button class="theme-btn" data-theme="dark" title="Tema Escuro">🌙</button>
+                        <button class="theme-btn" data-theme="blue" title="Tema Azul">🌊</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Estatísticas Detalhadas</h1>
+                <p>Análise completa dos dados de enchentes e precipitação em todo o Brasil</p>
+            </div>
+        </section>
+
+        <section class="stats-overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">📊</span>
+                        Estatísticas Nacionais
+                    </h3>
+                    <div class="stat-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Total de Cidades Monitoradas</span>
+                            <span class="stat-number">100+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Alertas Ativos</span>
+                            <span class="stat-number">15</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Média de Precipitação</span>
+                            <span class="stat-number">45mm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">📈</span>
+                        Tendências
+                    </h3>
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">🌧️</span>
+                        Precipitação por Região
+                    </h3>
+                    <canvas id="regionalChart"></canvas>
+                </div>
+
+                <div class="stat-card">
+                    <h3>
+                        <span class="icon">⚠️</span>
+                        Níveis de Alerta
+                    </h3>
+                    <canvas id="alertsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="historical-data">
+            <h2>Dados Históricos</h2>
+            <div class="data-filters">
+                <select id="yearFilter" class="filter-select">
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+                <select id="regionFilter" class="filter-select">
+                    <option value="all">Todas as Regiões</option>
+                    <option value="norte">Norte</option>
+                    <option value="nordeste">Nordeste</option>
+                    <option value="centro-oeste">Centro-Oeste</option>
+                    <option value="sudeste">Sudeste</option>
+                    <option value="sul">Sul</option>
+                </select>
+            </div>
+            <div class="stat-card">
+                <canvas id="historicalChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 HydroSafe - Sistema de Monitoramento de Enchentes</p>
+            <p>Dados atualizados em tempo real | Desenvolvido com ❤️ para a segurança da população</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="estatisticas.js"></script>
+</body>
+</html> 
