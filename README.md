@@ -1,5 +1,5 @@
-https://igordominiski.github.io/gp-front/
-https://github.com/IgorDominiski/gp-front.git
+# https://igordominiski.github.io/gp-front/
+# https://github.com/IgorDominiski/gp-front.git
 
 # HydroSafe - Sistema de Alertas de Enchentes
 
