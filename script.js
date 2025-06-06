@@ -281,7 +281,11 @@ function initMobileMenu() {
         menuToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
         overlay.classList.toggle('active');
-        body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        
+        // Ajusta o overflow do body apenas quando o menu está fechado
+        if (!navMenu.classList.contains('active')) {
+            body.style.overflow = '';
+        }
     }
 
     // Event listeners
